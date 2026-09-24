@@ -792,47 +792,11 @@ button {
 }
 
 .gallery-item:hover img {
-    transform: scale(1.06);
-    filter: brightness(0.88);
+    transform: scale(1.05);
 }
 
 .gallery-item-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 28px 16px 16px;
-    background: linear-gradient(to top, rgba(41, 39, 37, 0.65) 0%, transparent 100%);
-    color: #ffffff;
-    opacity: 0;
-    transition: opacity 0.35s ease;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-}
-
-.gallery-item:hover .gallery-item-overlay {
-    opacity: 1;
-}
-
-.gallery-item-caption {
-    font-family: var(--font-serif);
-    font-size: 0.95rem;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.92);
-    line-height: 1.4;
-}
-
-.gallery-item-icon {
-    width: 32px;
-    height: 32px;
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 50%;
-    backdrop-filter: blur(6px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    display: none !important;
 }
 
 .gallery-item-icon svg {
