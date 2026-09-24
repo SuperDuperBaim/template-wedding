@@ -111,9 +111,10 @@
                 }
             });
         }, {
-            threshold: 0.1,
-            // Elemen harus masuk minimal 40px ke dalam viewport baru trigger fade
-            rootMargin: "0px 0px -40px 0px"
+            threshold: 0.12,
+            // Elemen harus masuk minimal 100px ke dalam viewport baru trigger fade
+            // Ini penting agar user sempat melihat state awal (tersembunyi) sebelum animasi mulai
+            rootMargin: "0px 0px -100px 0px"
         });
 
         document.querySelectorAll(SELECTORS).forEach(function(el) {
