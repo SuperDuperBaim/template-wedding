@@ -232,7 +232,8 @@ button {
 }
 
 .cover-header-tag {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
     letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--color-accent);
@@ -442,6 +443,7 @@ button {
 /* Section 1: Quote */
 .section-quote {
     text-align: center;
+    padding-top: 32px;
 }
 
 .quote-statement {

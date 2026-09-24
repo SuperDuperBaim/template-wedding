@@ -12,10 +12,10 @@ const weddingData = {
     // -------------------------------------------------------------
     panggilanPria: "Reza",
     panggilanWanita: "Sarah",
-    tanggalPernikahanDisplay: "25 Oktober 2026",
+    tanggalPernikahanDisplay: "29 Oktober 2026",
     
     namaTamuFallback: "Tamu Undangan",
-    salamPembuka: "Om Swastiastu",
+    salamPembuka: "The Wedding of",
     
     // -------------------------------------------------------------
     // 2. KUTIPAN / WEDDING STATEMENT
@@ -47,7 +47,7 @@ const weddingData = {
     // -------------------------------------------------------------
     // 4. COUNTDOWN TARGET (Format ISO 8601: YYYY-MM-DDTHH:mm:ss)
     // -------------------------------------------------------------
-    tanggalCountdown: "2026-09-24T09:00:00",
+    tanggalCountdown: "2026-09-29T09:00:00",
 
     // -------------------------------------------------------------
     // 5. DAFTAR JADWAL ACARA (Mendukung satu atau lebih acara)
@@ -55,7 +55,7 @@ const weddingData = {
     acara: [
         {
             judul: "Pemberkatan Nikah",
-            tanggal: "Minggu, 25 Oktober 2026",
+            tanggal: "Minggu, 29 Oktober 2026",
             jam: "09.00 - 11.00 WIB",
             tempat: "Gereja Katedral Jakarta",
             alamatLengkap: "Jl. Katedral No.7B, Pasar Baru, Kecamatan Sawah Besar, Jakarta Pusat",
@@ -63,7 +63,7 @@ const weddingData = {
         },
         {
             judul: "Resepsi Pernikahan",
-            tanggal: "Minggu, 25 Oktober 2026",
+            tanggal: "Minggu, 29 Oktober 2026",
             jam: "18.30 - 21.30 WIB",
             tempat: "The Glass House Grand Ballroom",
             alamatLengkap: "Jl. MH Thamrin No. 28-30, Gondangdia, Menteng, Jakarta Pusat",
@@ -140,29 +140,23 @@ const weddingData = {
         enabled: true,
         foto: [
             {
-                src: "assets/gallery/photo-1.jpg",
-                caption: "Pre-wedding di Bali"
+                src: "assets/gallery/photo-1.jpg"
             },
             {
-                src: "assets/gallery/photo-2.jpg",
-                caption: "Momen bahagia bersama"
+                src: "assets/gallery/photo-2.jpg"
             },
             {
-                src: "assets/gallery/photo-3.jpg",
-                caption: "Hari yang dinantikan"
+                src: "assets/gallery/photo-3.jpg"
             },
             {
-                src: "assets/gallery/photo-4.jpg",
-                caption: "Senyum yang tulus"
+                src: "assets/gallery/photo-4.jpg"
             },
             {
-                src: "assets/gallery/photo-5.jpg",
-                caption: "Cinta yang abadi"
+                src: "assets/gallery/photo-5.jpg"
             },
             {
-                src: "assets/gallery/photo-6.jpg",
-                caption: "Bersama selamanya"
-            }
+                src: "assets/gallery/photo-6.jpg"
+            },
         ]
     },
 

@@ -4,6 +4,19 @@
  * 
  * Sepenuhnya dinamis berbasis data dari data.js
  */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCuNcfiPTIa5ZpxnYHGGmXnapy9kK_Y1Is",
+    authDomain: "undangan-wedding-540d2.firebaseapp.com",
+    projectId: "undangan-wedding-540d2",
+    storageBucket: "undangan-wedding-540d2.firebasestorage.app",
+    messagingSenderId: "571485525757",
+    appId: "1:571485525757:web:544f0d8284ece4eabbd094"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", () => {
     // Matikan browser scroll restoration agar tidak reload di posisi bawah
@@ -327,30 +340,41 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Storage Key
-    const storageKey = `wedding_wishes_${weddingData.panggilanPria}_${weddingData.panggilanWanita}`;
+    // Storage Key (Digunakan sebagai nama Collection di Firestore)
+    const collectionName = `wishes_${weddingData.panggilanPria}_${weddingData.panggilanWanita}`.toLowerCase();
+    
+    let allWishes = []; // Menyimpan semua data dari Firestore
 
-    // Get wishes from storage or fallback to data.js
-    function getStoredWishes() {
-        try {
-            const stored = localStorage.getItem(storageKey);
-            if (stored) {
-                return JSON.parse(stored);
-            }
-        } catch (e) {
-            console.warn("Could not read wishes from localStorage", e);
-        }
-        return Array.isArray(weddingData.wishes) ? weddingData.wishes : [];
+    // Format waktu untuk tampilan (e.g. "12 Okt 2026, 14:30")
+    function formatDate(date) {
+        if (!date) return "Baru saja";
+        return date.toLocaleDateString('id-ID', {
+            day: 'numeric', month: 'short', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        });
     }
 
-    // Save wishes to storage
-    function saveWishes(wishesArr) {
-        try {
-            localStorage.setItem(storageKey, JSON.stringify(wishesArr));
-        } catch (e) {
-            console.warn("Could not save wishes to localStorage", e);
-        }
-    }
+    // Mendengarkan perubahan data secara realtime dari Firestore
+    const wishesQuery = query(collection(db, collectionName), orderBy("timestamp", "desc"));
+    onSnapshot(wishesQuery, (snapshot) => {
+        allWishes = [];
+        snapshot.forEach((doc) => {
+            const data = doc.data();
+            allWishes.push({
+                id: doc.id,
+                nama: data.nama,
+                pesan: data.pesan,
+                waktu: data.timestamp ? formatDate(data.timestamp.toDate()) : "Baru saja"
+            });
+        });
+        
+        // Gabungkan dengan data statis dari data.js jika ada, lalu render
+        const staticWishes = Array.isArray(weddingData.wishes) ? weddingData.wishes : [];
+        allWishes = [...allWishes, ...staticWishes];
+        
+        // Tetap di halaman yang sama jika data berubah, kecuali jika baru diload
+        renderWishes(currentWishPage);
+    });
 
     // Render pagination controls (1 2 3 4 5...)
     function renderWishesPagination(totalPages, activePage) {
@@ -405,8 +429,7 @@ document.addEventListener("DOMContentLoaded", () => {
             currentWishPage = targetPage;
         }
 
-        const currentWishes = getStoredWishes();
-        const totalWishes = currentWishes.length;
+        const totalWishes = allWishes.length;
 
         if (totalWishes === 0) {
             wishesList.innerHTML = `<p class="wishes-empty">Be the first to send wishes to ${weddingData.panggilanPria} &amp; ${weddingData.panggilanWanita}!</p>`;
@@ -420,7 +443,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const startIndex = (currentWishPage - 1) * WISHES_PER_PAGE;
         const endIndex = Math.min(startIndex + WISHES_PER_PAGE, totalWishes);
-        const pagedWishes = currentWishes.slice(startIndex, endIndex);
+        const pagedWishes = allWishes.slice(startIndex, endIndex);
 
         wishesList.innerHTML = "";
         pagedWishes.forEach((item, index) => {
@@ -438,12 +461,12 @@ document.addEventListener("DOMContentLoaded", () => {
         renderWishesPagination(totalPages, currentWishPage);
     }
 
-    // Initial render of wishes (Halaman 1)
-    renderWishes(1);
+    // Initial render dipanggil saat snapshot firebase pertama kali masuk
 
     // Form submit listener
     if (wishesForm) {
-        wishesForm.addEventListener("submit", (e) => {
+        const btnSubmitWish = document.getElementById("btn-submit-wish");
+        wishesForm.addEventListener("submit", async (e) => {
             e.preventDefault();
 
             const name = wishNameInput ? wishNameInput.value.trim() : "";
@@ -468,37 +491,50 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // Create new wish object
-            const newWish = {
-                nama: name,
-                pesan: message,
-                waktu: "Just now"
-            };
-
-            const existingWishes = getStoredWishes();
-            existingWishes.unshift(newWish);
-            saveWishes(existingWishes);
-
-            // Re-render dan buka halaman 1 untuk melihat ucapan terbaru
-            renderWishes(1);
-
-            // Reset form message (keep name if from URL)
-            if (wishMsgInput) wishMsgInput.value = "";
-            if (wordCountSpan) wordCountSpan.textContent = "0";
-            if (wordCountSpan && wordCountSpan.parentElement) {
-                wordCountSpan.parentElement.classList.remove("over-limit");
-            }
-            if (!guestParam && wishNameInput) {
-                wishNameInput.value = "";
+            // Ubah tombol menjadi status loading
+            if (btnSubmitWish) {
+                btnSubmitWish.disabled = true;
+                btnSubmitWish.querySelector("span").textContent = "Sending...";
             }
 
-            // Toast feedback
-            if (toastNotice) {
-                toastNotice.textContent = "Thank you! Your wishes have been sent.";
-                toastNotice.classList.add("show");
-                setTimeout(() => {
-                    toastNotice.classList.remove("show");
-                }, 3000);
+            try {
+                // Simpan ke Firestore
+                await addDoc(collection(db, collectionName), {
+                    nama: name,
+                    pesan: message,
+                    timestamp: serverTimestamp()
+                });
+
+                // Pindah ke halaman 1 agar ucapan terbaru terlihat
+                currentWishPage = 1;
+
+                // Reset form message (keep name if from URL)
+                if (wishMsgInput) wishMsgInput.value = "";
+                if (wordCountSpan) wordCountSpan.textContent = "0";
+                if (wordCountSpan && wordCountSpan.parentElement) {
+                    wordCountSpan.parentElement.classList.remove("over-limit");
+                }
+                if (!guestParam && wishNameInput) {
+                    wishNameInput.value = "";
+                }
+
+                // Toast feedback
+                if (toastNotice) {
+                    toastNotice.textContent = "Thank you! Your wishes have been sent.";
+                    toastNotice.classList.add("show");
+                    setTimeout(() => {
+                        toastNotice.classList.remove("show");
+                    }, 3000);
+                }
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                alert("Gagal mengirim ucapan. Pastikan koneksi internet Anda stabil dan coba lagi.");
+            } finally {
+                // Kembalikan tombol ke keadaan semula
+                if (btnSubmitWish) {
+                    btnSubmitWish.disabled = false;
+                    btnSubmitWish.querySelector("span").textContent = "Send Wishes";
+                }
             }
         });
     }
