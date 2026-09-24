@@ -590,9 +590,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.__lenis.scrollTo(0, { immediate: true });
             }
 
-            // Trigger scroll reveal & popup slide up setelah transisi cover selesai
+            // Trigger popup slide up setelah transisi cover selesai
+            // (Scroll reveal observer diinisialisasi otomatis oleh smooth-scroll.js saat cover ditutup)
             setTimeout(() => {
-                initScrollReveal();
                 initPopupSlideUp();
             }, 750);
         });
