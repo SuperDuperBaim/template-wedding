@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="meta-title">The Wedding of Reza & Sarah</title>
+    <meta id="meta-description" name="description" content="Pernikahan Reza & Sarah. Kami mengundang Anda untuk merayakan hari bahagia kami.">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website">
+    <meta id="og-title" property="og:title" content="The Wedding of Reza & Sarah">
+    <meta id="og-description" property="og:description" content="Kami mengundang Anda untuk merayakan pernikahan kami.">
+    <meta id="og-image" property="og:image" content="assets/og-image.jpg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css?v=2.8">
+
+    <!-- Lenis Smooth Scroll (GSAP-quality inertia scroll, ~4kb) -->
+    <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+</head>
+<body class="locked">
+
+    <!-- Background Image Layer (fixed, behind all content) -->
+    <div id="bg-main" aria-hidden="true"></div>
+
+    <!-- =======================================================================
+         1. COVER / OPENING SECTION (Initially full screen)
+         ======================================================================= -->
+    <section id="cover" aria-label="Cover Undangan">
+        <div class="cover-wrapper">
+            <p class="cover-header-tag" id="cover-salam">THE WEDDING OF</p>
+            
+            <h1 class="cover-names">
+                <span id="cover-groom-name">Reza</span>
+                <span class="ampersand">&amp;</span>
+                <span id="cover-bride-name">Sarah</span>
+            </h1>
+
+            <p class="cover-date" id="cover-date">25 Oktober 2026</p>
+
+            <div class="cover-guest-box">
+                <p class="cover-guest-greeting">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+                <div class="cover-guest-name" id="cover-guest-name">Tamu Undangan</div>
+            </div>
+
+            <button type="button" class="btn-primary" id="btn-open-invitation" aria-label="Buka Undangan">
+                <span>Buka Undangan</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- =======================================================================
+         FLOATING AUDIO CONTROLLER (Minimalist)
+         ======================================================================= -->
+    <button type="button" class="music-toggle" id="music-toggle" aria-label="Toggle Musik" title="Musik Latar">
+        <svg id="icon-music-playing" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <svg id="icon-music-muted" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display: none;" aria-hidden="true">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+    </button>
+    <audio id="bg-audio" preload="auto" loop></audio>
+
+    <!-- =======================================================================
+         MAIN CONTENT CONTAINER
+         ======================================================================= -->
+    <div id="main-content">
+
+        <!-- Top Hero Monogram -->
+        <header class="header-hero reveal-zoom-in" id="home">
+            <div class="container">
+                <div class="monogram" id="hero-monogram">R &amp; S</div>
+                <p class="editorial-label">The Sacred Wedding of</p>
+                <h2 class="editorial-title" id="hero-names">Reza &amp; Sarah</h2>
+                <div class="line-ornament">
+                    <span class="line-ornament-mark"></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 2. QUOTE / WEDDING STATEMENT -->
+        <section class="section section-quote" id="quote" aria-label="Kutipan Pernikahan">
+            <div class="container container-narrow reveal-fade-up">
+                <blockquote class="quote-statement" id="quote-text">
+                    "Suami istri sejati adalah dua jiwa yang bersatu dalam cinta kasih suci, saling mendukung dan menjaga kehormatan demi kebahagiaan lahir dan batin yang abadi."
+                </blockquote>
+                <cite class="quote-source" id="quote-source">— Slokantara</cite>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- 3. THE COUPLE -->
+        <section class="section section-couple" id="mempelai" aria-label="The Couple">
+            <div class="container">
+                <div class="reveal-fade-up">
+                    <p class="editorial-label">Maha Suci Tuhan Yang Maha Esa</p>
+                    <h2 class="editorial-title">The Couple</h2>
+                    <p class="editorial-subtitle">Dengan memohon rahmat dan restu-Nya, kami bermaksud melangsungkan pernikahan:</p>
+                </div>
+
+                <div class="couple-grid">
+                    <!-- Groom -->
+                    <article class="couple-card reveal-fade-left delay-1" id="groom-card">
+                        <div class="couple-photo-wrapper">
+                            <img src="assets/groom.jpg" alt="Foto Mempelai Pria" class="couple-photo" id="groom-photo">
+                        </div>
+                        <span class="couple-role">The Groom</span>
+                        <h3 class="couple-name" id="groom-fullname">Reza Rahadian, S.Kom.</h3>
+                        <p class="couple-parents" id="groom-parents">Putra pertama dari Bapak Budi Santoso &amp; Ibu Siti Aminah</p>
+                        <a href="https://instagram.com/reza" target="_blank" rel="noopener noreferrer" class="couple-social" id="groom-instagram" aria-label="Instagram Groom">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                            <span id="groom-instagram-label">@reza</span>
+                        </a>
+                    </article>
+
+                    <!-- Bride -->
+                    <article class="couple-card reveal-fade-right delay-2" id="bride-card">
+                        <div class="couple-photo-wrapper">
+                            <img src="assets/bride.jpg" alt="Foto Mempelai Wanita" class="couple-photo" id="bride-photo">
+                        </div>
+                        <span class="couple-role">The Bride</span>
+                        <h3 class="couple-name" id="bride-fullname">Sarah Wijayanto, S.E.</h3>
+                        <p class="couple-parents" id="bride-parents">Putri kedua dari Bapak Hendra Wijaya &amp; Ibu Ratna Dewi</p>
+                        <a href="https://instagram.com/sarah" target="_blank" rel="noopener noreferrer" class="couple-social" id="bride-instagram" aria-label="Instagram Bride">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                            <span id="bride-instagram-label">@sarah</span>
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. COUNTDOWN -->
+        <section class="section section-countdown" id="countdown" aria-label="Countdown To The Day">
+            <div class="container">
+                <div class="reveal-fade-up">
+                    <p class="editorial-label">Save The Date</p>
+                    <h2 class="editorial-title">Counting Down To Our Day</h2>
+                </div>
+                
+                <div class="countdown-grid reveal-zoom-in delay-1">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="cd-days">00</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="cd-hours">00</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="cd-minutes">00</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="cd-seconds">00</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. THE EVENTS -->
+        <section class="section section-events" id="acara" aria-label="Wedding Events">
+            <div class="container">
+                <div class="reveal-fade-up">
+                    <p class="editorial-label">Wedding Agenda</p>
+                    <h2 class="editorial-title">Time &amp; Venue</h2>
+                    <p class="editorial-subtitle">Rangkaian acara yang akan diselenggarakan:</p>
+                </div>
+
+                <div class="events-wrapper" id="events-container">
+                    <!-- Rendered dynamically by script.js from weddingData.acara -->
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- 6. GALERI FOTO PENGANTIN -->
+        <section class="section section-gallery" id="galeri" aria-label="Galeri Foto Pengantin">
+            <div class="container">
+                <div class="reveal-fade-up">
+                    <p class="editorial-label">Love Story</p>
+                    <h2 class="editorial-title" id="gallery-title">Our Gallery</h2>
+                    <p class="editorial-subtitle" id="gallery-subtitle">Setiap momen bersama adalah kenangan terindah yang akan selalu kami jaga.</p>
+                </div>
+
+                <div class="gallery-grid" id="gallery-grid">
+                    <!-- Rendered dynamically by script.js from weddingData.galeri -->
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+
+        <!-- 7. WEDDING GIFT -->
+        <section class="section section-gift" id="amplop" aria-label="Wedding Gift">
+            <div class="container">
+                <div class="reveal-fade-up">
+                    <p class="editorial-label">A Gesture of Love</p>
+                    <h2 class="editorial-title">Wedding Gift</h2>
+                    <p class="gift-intro" id="amplop-intro">
+                        Doa restu Anda merupakan karunia terindah bagi kami. Namun jika Anda bermaksud memberikan tanda kasih, kami menyediakan amplop digital di bawah ini:
+                    </p>
+                </div>
+
+                <!-- Bank Accounts Grid -->
+                <div class="bank-cards-grid" id="bank-cards-container">
+                    <!-- Rendered dynamically by script.js from weddingData.rekening -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. WISHES -->
+        <section class="section section-wishes" id="wishes" aria-label="Wedding Wishes">
+            <div class="container">
+                <div class="wishes-box reveal-fade-up">
+                    <p class="editorial-label">Leave A Message</p>
+                    <h2 class="editorial-title">Wedding Wishes</h2>
+                    <p class="wishes-note">
+                        Sampaikan doa dan ucapan tulus Anda untuk kedua mempelai. Setiap kata indah yang Anda tuliskan sangat berarti bagi kami.
+                    </p>
+
+                    <!-- Wishes Form -->
+                    <form class="wishes-form" id="wishes-form" novalidate>
+                        <div class="wishes-field">
+                            <label class="wishes-label" for="wish-name">Your Name</label>
+                            <input
+                                type="text"
+                                id="wish-name"
+                                name="wish-name"
+                                class="wishes-input"
+                                placeholder="Enter your name"
+                                maxlength="60"
+                                autocomplete="name"
+                                required
+                            >
+                        </div>
+                        <div class="wishes-field">
+                            <label class="wishes-label" for="wish-message">Your Wishes <span class="wishes-limit">(max 50 words)</span></label>
+                            <textarea
+                                id="wish-message"
+                                name="wish-message"
+                                class="wishes-textarea"
+                                placeholder="Write your heartfelt wishes for the couple..."
+                                rows="4"
+                                required
+                            ></textarea>
+                            <div class="wishes-word-counter">
+                                <span id="word-count">0</span> / 50 words
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary wishes-submit" id="btn-submit-wish" aria-label="Send your wishes">
+                            <span>Send Wishes</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
+                    </form>
+
+                    <!-- Wishes Display List -->
+                    <div class="wishes-list" id="wishes-list" aria-label="Wedding wishes from guests"></div>
+
+                    <!-- Wishes Pagination (1 2 3 4 5...) -->
+                    <div class="wishes-pagination" id="wishes-pagination" aria-label="Wishes pagination"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. FOOTER -->
+        <footer class="reveal-fade-up">
+            <div class="container">
+                <div class="footer-names" id="footer-names">Reza &amp; Sarah</div>
+                <div class="footer-date" id="footer-date">25 OKTOBER 2026</div>
+                <p class="footer-message">
+                    Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.
+                </p>
+                <div class="footer-credit" id="footer-credit">Digital Invitation by Ananda Ibrahim</div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- LIGHTBOX MODAL -->
+    <div class="lightbox-overlay" id="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Tampilan Foto Galeri">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Tutup galeri foto">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <button class="lightbox-arrow lightbox-prev" id="lightbox-prev" aria-label="Foto sebelumnya">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-img" id="lightbox-img">
+            <p class="lightbox-caption" id="lightbox-caption"></p>
+        </div>
+        <button class="lightbox-arrow lightbox-next" id="lightbox-next" aria-label="Foto berikutnya">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+    </div>
+
+    <!-- =======================================================================
+         STICKY BOTTOM NAVIGATION (Minimalist Editorial)
+         ======================================================================= -->
+    <nav class="bottom-nav hidden" id="bottom-nav" aria-label="Invitation Navigation">
+        <a href="#home" class="active" aria-label="Home">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            </svg>
+            <span>Home</span>
+        </a>
+        <a href="#mempelai" aria-label="The Couple">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            <span>Couple</span>
+        </a>
+        <a href="#acara" aria-label="Events">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Events</span>
+        </a>
+        <a href="#galeri" aria-label="Gallery">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+            </svg>
+            <span>Gallery</span>
+        </a>
+        <a href="#wishes" aria-label="Wishes">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            <span>Wishes</span>
+        </a>
+    </nav>
+
+    <!-- Toast Notice for Copy to Clipboard -->
+    <div class="toast-notice" id="toast-notice" role="status" aria-live="polite">
+        Nomor rekening berhasil disalin
+    </div>
+
+    <!-- =======================================================================
+         FLOATING SLIDE-UP POPUP (Live Wishes Notification)
+         ======================================================================= -->
+    <aside class="popup-slide-up" id="popup-slide-up" role="status" aria-live="polite" aria-label="Notifikasi ucapan tamu">
+        <button type="button" class="popup-slide-close" id="popup-slide-close" aria-label="Tutup notifikasi">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="popup-slide-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </div>
+        <div class="popup-slide-content">
+            <div class="popup-slide-header">
+                <strong class="popup-slide-name" id="popup-slide-name">Dimas &amp; Maya</strong>
+                <span class="popup-slide-time" id="popup-slide-time">Baru saja</span>
+            </div>
+            <p class="popup-slide-message" id="popup-slide-message">Selamat berbahagia untuk Reza &amp; Sarah!</p>
+        </div>
+    </aside>
+
+    <!-- Scripts -->
+    <script src="data.js?v=2.6"></script>
+    <script src="script.js?v=2.6"></script>
+    <script src="smooth-scroll.js?v=2.6"></script>
+</body>
+</html>
